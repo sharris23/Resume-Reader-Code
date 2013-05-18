@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
+/*
+ * @Compare class for comparing thE stats of each employee side by side. 
+ */
+public class Compare {
+
+  public ArrayList<Employee> potentials;
+	/*
+	 * Constructor for compare class that takes in an arraylist of employees as a parameter
+	 */
+	public Compare(ArrayList<Employee> potentials){
+		this.potentials=potentials;
+	}
+	/*
+	 * Orders the array based on compared employees using collections and individual compare to methods
+	 */
+	public ArrayList<Employee> getOrdered(){
+		Collections.sort(potentials, potentials.get(1).compare);
+		return potentials;
+	}
+}
