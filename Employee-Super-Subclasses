@@ -1,0 +1,305 @@
+import java.util.Comparator;
+/*
+ * Employee:super class for different employee types, implements Comparable so that employees can be properly ordered 
+ */
+public class Employee implements Comparable<Employee>{
+  
+	public double exp;//measures general experience with the type of work required 
+	public double drive; //to be measured by frequency of leadership positions (implicit or explicit) 
+	public double skills; //to be measured by incidence of skills not directly related to the job 
+	public String business;
+	public String name;
+	
+	public Employee(String name, String business, double exp, double drive, double skills){
+		this.name=name;
+		this.business=business;
+		this.exp=exp;
+		this.drive=drive;
+		this.skills=skills;
+	}
+	//Return methods for Employee stats
+	public double getExp(){
+		return exp;
+	}
+	
+	public double getDrive(){
+		return drive;
+	}
+	
+	public double getSkills(){
+		return skills;
+	}
+	
+	public String getBusiness(){
+		return business;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * compareto method to be inherited by all subsequent employee subclasses
+	 */
+	public int compareTo(Employee eThat){
+		
+		int thatscore=0;
+		int thisscore=0;
+		int returned=0;
+		
+		if(this.exp < eThat.exp) thatscore=thatscore+3;
+		if(this.exp > eThat.exp) thisscore=thisscore+3;
+		if(this.drive < eThat.drive) thatscore=thatscore+2;
+		if(this.drive > eThat.drive) thisscore=thisscore+2;
+		if(this.skills < eThat.skills) thatscore=thatscore+1;
+		if(this.skills > eThat.skills) thisscore=thisscore+1;
+		if(thatscore>thisscore)
+			returned=1;
+		if(thatscore<thisscore)
+			returned=-1;
+		if(thatscore==thisscore)
+			returned=0;
+		return returned;
+	}
+	
+	/*
+	 * Comparator which uses the compareTo method to order 2 employees 
+	 */
+	public Comparator<Employee> compare = new Comparator<Employee>(){
+		
+		public int compare(Employee one, Employee two){
+			return one.compareTo(two);
+		}
+		
+	};
+
+}
+
+import java.util.Comparator;
+
+/*
+ * Class for common laborer or desk jockey job  
+ */
+public class Labor extends Employee {
+
+  public double compxp;//measures experience with computers and computer programs, particularly pertinent for office cogs 
+	
+	public Labor(String name, String business, double compxp, double exp, double drive, double skills) {
+		super(business, name, exp, drive, skills);
+		this.compxp=compxp;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public double getCompxp(){
+		return compxp;
+	}
+	
+	public int compareTo(Labor eThat){
+		
+		int thatscore=0;
+		int thisscore=0;
+		int returned=0;
+		
+		if(this.exp < eThat.exp) thatscore=thatscore+3;
+		if(this.exp > eThat.exp) thisscore=thisscore+3;
+		if(this.drive < eThat.drive) thatscore=thatscore+2;
+		if(this.drive > eThat.drive) thisscore=thisscore+2;
+		if(this.skills < eThat.skills) thatscore=thatscore+1;
+		if(this.skills > eThat.skills) thisscore=thisscore+1;
+		if(this.compxp < eThat.compxp) thatscore=thatscore+2;
+		if(this.compxp > eThat.compxp) thisscore=thisscore+2;
+		if(thatscore>thisscore)
+			returned=1;
+		if(thatscore<thisscore)
+			returned=-1;
+		if(thatscore==thisscore)
+			returned=0;
+		return returned;
+	}
+	
+	public Comparator<Labor> compare = new Comparator<Labor>(){
+			
+			public int compare(Labor one, Labor two){
+				return one.compareTo(two);
+			}
+		
+	};
+
+}
+
+import java.util.Comparator;
+/*
+ * Class for any general leadership position 
+ */
+
+public class Manager extends Employee{
+
+  public double leading; //measured by frequency of explicit leadership positions(search for words such as "led a team" or "managed")
+	public double teamwork; //measured by frequency of employees work with a team or large number of people 
+	
+	public Manager(String name, String business, double leading, double teamwork, double exp, double drive, double skills){
+		super(business, name, exp, drive, skills);
+		this.leading=leading;
+		this.teamwork=teamwork;
+	}
+	
+	public double getLeading(){
+		return leading;
+	}
+	
+	public double getTeamwork(){
+		return teamwork;
+	}
+	
+	public int compareTo(Manager eThat){
+			
+			int thatscore=0;
+			int thisscore=0;
+			int returned=0;
+			
+			if(this.exp < eThat.exp) thatscore=thatscore+4;
+			if(this.exp > eThat.exp) thisscore=thisscore+4;
+			if(this.drive < eThat.drive) thatscore=thatscore+2;
+			if(this.drive > eThat.drive) thisscore=thisscore+2;
+			if(this.skills < eThat.skills) thatscore=thatscore+1;
+			if(this.skills > eThat.skills) thisscore=thisscore+1;
+			if(this.leading < eThat.leading) thatscore=thatscore+3;
+			if(this.leading > eThat.leading) thisscore=thisscore+3;
+			if(this.teamwork < eThat.teamwork) thatscore=thatscore+2;
+			if(this.teamwork > eThat.teamwork) thisscore=thisscore+2;
+			if(thatscore>thisscore)
+				returned=1;
+			if(thatscore<thisscore)
+				returned=-1;
+			if(thatscore==thisscore)
+				returned=0;
+			return returned;
+	}
+	
+	public Comparator<Manager> compare = new Comparator<Manager>(){
+		
+		public int compare(Manager one, Manager two){
+			return one.compareTo(two);
+		}
+	};
+
+}
+
+import java.util.Comparator;
+/*
+ * Class for any general secretary or office aid. 
+ */
+
+public class Secretary extends Employee {
+
+  public double officxp; //measures how much experience the potential has with office working, includes libraries
+	public double compxp; //measures experience with computers 
+	
+	public Secretary(String name, String business, double officxp, double compxp, double exp, double drive, double skills) {
+		super(business, name, exp, drive, skills);
+		this.officxp=officxp;
+		this.compxp=compxp;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public double getOfficxp(){
+		return officxp;
+	}
+	
+	public double getCompxp(){
+		return compxp;
+	}
+	
+	public int compareTo(Secretary eThat){
+		
+		int thatscore=0;
+		int thisscore=0;
+		int returned=0;
+		
+		if(this.exp < eThat.exp) thatscore=thatscore+3;
+		if(this.exp > eThat.exp) thisscore=thisscore+3;
+		if(this.drive < eThat.drive) thatscore=thatscore+2;
+		if(this.drive > eThat.drive) thisscore=thisscore+2;
+		if(this.skills < eThat.skills) thatscore=thatscore+1;
+		if(this.skills > eThat.skills) thisscore=thisscore+1;
+		if(this.compxp < eThat.compxp) thatscore=thatscore+2;
+		if(this.compxp > eThat.compxp) thisscore=thisscore+2;
+		if(this.officxp < eThat.officxp) thatscore=thatscore+2;
+		if(this.officxp > eThat.officxp) thisscore=thisscore+2;
+		if(thatscore>thisscore)
+			returned=1;
+		if(thatscore<thisscore)
+			returned=-1;
+		if(thatscore==thisscore)
+			returned=0;
+		return returned;
+	}
+	
+	public Comparator<Secretary> compare = new Comparator<Secretary>(){
+		
+		public int compare(Secretary one, Secretary two){
+			return one.compareTo(two);
+		}
+	};
+
+}
+
+import java.util.Comparator;
+/*
+ * Class for any general secretary or office aid. 
+ */
+
+public class Secretary extends Employee {
+
+  public double officxp; //measures how much experience the potential has with office working, includes libraries
+	public double compxp; //measures experience with computers 
+	
+	public Secretary(String name, String business, double officxp, double compxp, double exp, double drive, double skills) {
+		super(business, name, exp, drive, skills);
+		this.officxp=officxp;
+		this.compxp=compxp;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public double getOfficxp(){
+		return officxp;
+	}
+	
+	public double getCompxp(){
+		return compxp;
+	}
+	
+	public int compareTo(Secretary eThat){
+		
+		int thatscore=0;
+		int thisscore=0;
+		int returned=0;
+		
+		if(this.exp < eThat.exp) thatscore=thatscore+3;
+		if(this.exp > eThat.exp) thisscore=thisscore+3;
+		if(this.drive < eThat.drive) thatscore=thatscore+2;
+		if(this.drive > eThat.drive) thisscore=thisscore+2;
+		if(this.skills < eThat.skills) thatscore=thatscore+1;
+		if(this.skills > eThat.skills) thisscore=thisscore+1;
+		if(this.compxp < eThat.compxp) thatscore=thatscore+2;
+		if(this.compxp > eThat.compxp) thisscore=thisscore+2;
+		if(this.officxp < eThat.officxp) thatscore=thatscore+2;
+		if(this.officxp > eThat.officxp) thisscore=thisscore+2;
+		if(thatscore>thisscore)
+			returned=1;
+		if(thatscore<thisscore)
+			returned=-1;
+		if(thatscore==thisscore)
+			returned=0;
+		return returned;
+	}
+	
+	public Comparator<Secretary> compare = new Comparator<Secretary>(){
+		
+		public int compare(Secretary one, Secretary two){
+			return one.compareTo(two);
+		}
+	};
+
+}
